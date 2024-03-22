@@ -5,9 +5,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jdk.jfr.Enabled;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -18,11 +21,18 @@ public class Post {
 
     @Id
     @GeneratedValue
-    private Long id;
-    private String title;
-    private String content;
+    Long id;
+    String title;
+    String content;
 
     @ManyToOne
+    User user;
+
+    @OneToMany(mappedBy = "post")
     @JsonIgnore
-    private User user;
+    List<Comment> comments;
+
+    @OneToMany(mappedBy = "post")
+    @JsonIgnore
+    List<Like> likes;
 }
