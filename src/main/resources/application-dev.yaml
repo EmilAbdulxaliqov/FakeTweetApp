@@ -2,9 +2,9 @@ spring:
   application:
     name: FakeTweetAppDev
   datasource:
-    url: jdbc:postgresql://localhost:5000/faketweetapp
+    url: jdbc:postgresql://localhost:5432/faketweetapp
     username: postgres
-    password: Ali20031001a
+    password: postgres
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
