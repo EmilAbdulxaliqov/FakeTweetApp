@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/FakeTweetApp.iml" filepath="$PROJECT_DIR$/FakeTweetApp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/FakeTweetApp.main.iml" filepath="$PROJECT_DIR$/.idea/modules/FakeTweetApp.main.iml" />
     </modules>
   </component>
 </project>
