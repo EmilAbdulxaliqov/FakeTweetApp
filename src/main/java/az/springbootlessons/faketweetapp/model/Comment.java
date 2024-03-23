@@ -1,10 +1,12 @@
 package az.springbootlessons.faketweetapp.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+@Entity(name = "comments")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -16,7 +18,9 @@ public class Comment {
     Long id;
     String content;
     @ManyToOne
+    @JsonIgnore
     Post post;
     @ManyToOne
+    @JsonIgnore
     User user;
 }

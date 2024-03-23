@@ -5,22 +5,19 @@ import az.springbootlessons.faketweetapp.dto.request.PostRequestDto;
 import az.springbootlessons.faketweetapp.dto.response.GetPostResponse;
 import az.springbootlessons.faketweetapp.service.LikeService;
 import az.springbootlessons.faketweetapp.service.PostService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/posts")
+@RequestMapping("/api/v1/post")
+@RequiredArgsConstructor
 public class PostController {
 
-    private PostService postService;
+    private final PostService postService;
+    private final LikeService likeService;
 
-    private LikeService likeService;
-
-    public PostController(PostService postService, LikeService likeService) {
-        this.postService = postService;
-        this.likeService = likeService;
-    }
     @GetMapping
     public List<GetPostResponse> getAllPosts() {
         return postService.getAllPosts();
@@ -31,14 +28,14 @@ public class PostController {
         return postService.getPostByIdDto(id);
     }
 
-    @GetMapping("/{userId}")
+    @GetMapping("/user/{userId}")
     public List<GetPostResponse> getPostsByUserId(@PathVariable Long userId) {
         return postService.getPostsByUserId(userId);
     }
 
-    @PostMapping
+    @PostMapping("/user/{userId}")
     public void addPost(@RequestBody PostRequestDto postDto,@PathVariable Long userId) {
-        postService.addPost(postDto,userId);
+    postService.addPost(postDto,userId);
     }
 
     @DeleteMapping("/{id}")
@@ -50,12 +47,11 @@ public class PostController {
     public void updatePost(@PathVariable Long id, @RequestBody PostRequestDto postDto) {
         postService.updatePost(id, postDto);
     }
-
     @PostMapping("/{postId}/like/{userId}")
     public void likePost(@PathVariable Long postId, @PathVariable Long userId) {
         likeService.likePost(postId, userId);
     }
-    @PostMapping("/{postId}/unlike/{userId}")
+    @DeleteMapping("/{postId}/unlike/{userId}")
     public void unlikePost(@PathVariable Long postId, @PathVariable Long userId) {
         likeService.unlikePost(postId, userId);
     }

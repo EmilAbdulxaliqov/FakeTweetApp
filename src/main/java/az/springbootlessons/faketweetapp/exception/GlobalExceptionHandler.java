@@ -8,9 +8,14 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
-    @ExceptionHandler(RuntimeException.class)
+    @ExceptionHandler(UserNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public String handleRuntimeException(RuntimeException ex) {
+    public String handleRuntimeException(UserNotFoundException ex) {
+        return ex.getMessage();
+    }
+    @ExceptionHandler(PostNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public String handleRuntimeException(PostNotFoundException ex) {
         return ex.getMessage();
     }
 }
