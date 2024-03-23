@@ -24,8 +24,8 @@ public class PostService {
         this.postMapper = postMapper;
     }
 
-    public void addPost(PostRequestDto postDto) {
-        User user = UserService.getUserById(postDto.getUserId());
+    public void addPost(PostRequestDto postDto,Long userId) {
+        User user = UserService.getUserById(userId);
         if (user == null) {
             throw new RuntimeException("User not found");
         }
@@ -39,9 +39,13 @@ public class PostService {
         return post.stream().map(postMapper::postToDto).collect(Collectors.toList());
     }
 
-    public GetPostResponse getPostById(Long id) {
+    public GetPostResponse getPostByIdDto(Long id) {
         Post post = postRepository.findById(id).orElseThrow(() -> new RuntimeException("Post not found"));
         return postMapper.postToDto(post);
+    }
+    public Post getPostById(Long id) {
+        return  postRepository.findById(id).orElseThrow(() -> new RuntimeException("Post not found"));
+
     }
 
     public List<GetPostResponse> getPostsByUserId(Long userId) {

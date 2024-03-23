@@ -3,6 +3,7 @@ package az.springbootlessons.faketweetapp.controller;
 
 import az.springbootlessons.faketweetapp.dto.request.PostRequestDto;
 import az.springbootlessons.faketweetapp.dto.response.GetPostResponse;
+import az.springbootlessons.faketweetapp.service.LikeService;
 import az.springbootlessons.faketweetapp.service.PostService;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,6 +15,12 @@ public class PostController {
 
     private PostService postService;
 
+    private LikeService likeService;
+
+    public PostController(PostService postService, LikeService likeService) {
+        this.postService = postService;
+        this.likeService = likeService;
+    }
     @GetMapping
     public List<GetPostResponse> getAllPosts() {
         return postService.getAllPosts();
@@ -21,7 +28,7 @@ public class PostController {
 
     @GetMapping("/{id}")
     public GetPostResponse getPostById(@PathVariable Long id) {
-        return postService.getPostById(id);
+        return postService.getPostByIdDto(id);
     }
 
     @GetMapping("/{userId}")
@@ -30,8 +37,8 @@ public class PostController {
     }
 
     @PostMapping
-    public void addPost(@RequestBody PostRequestDto postDto) {
-        postService.addPost(postDto);
+    public void addPost(@RequestBody PostRequestDto postDto,@PathVariable Long userId) {
+        postService.addPost(postDto,userId);
     }
 
     @DeleteMapping("/{id}")
@@ -43,4 +50,14 @@ public class PostController {
     public void updatePost(@PathVariable Long id, @RequestBody PostRequestDto postDto) {
         postService.updatePost(id, postDto);
     }
+
+    @PostMapping("/{postId}/like/{userId}")
+    public void likePost(@PathVariable Long postId, @PathVariable Long userId) {
+        likeService.likePost(postId, userId);
+    }
+    @PostMapping("/{postId}/unlike/{userId}")
+    public void unlikePost(@PathVariable Long postId, @PathVariable Long userId) {
+        likeService.unlikePost(postId, userId);
+    }
+
 }
