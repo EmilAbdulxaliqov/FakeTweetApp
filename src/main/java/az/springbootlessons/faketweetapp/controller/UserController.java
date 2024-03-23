@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
     private final UserService userService;
     @GetMapping("{id}")
-    public GetAllUserResponse getAll(@PathVariable Long id) {
+    public GetAllUserResponse getUserById(@PathVariable Long id) {
         return userService.getUserById(id);
     }
 }

@@ -3,21 +3,17 @@ package az.springbootlessons.faketweetapp.controller;
 import az.springbootlessons.faketweetapp.dto.request.CommentRequestDto;
 import az.springbootlessons.faketweetapp.dto.response.CommentResponseDto;
 import az.springbootlessons.faketweetapp.service.CommentService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/comments")
+@RequestMapping("/api/v1/comment")
+@RequiredArgsConstructor
 public class CommentController {
 
-    private CommentService commentService;
-
-
-
-    public CommentController(CommentService commentService) {
-        this.commentService = commentService;
-    }
+    private final CommentService commentService;
 
     @PostMapping("/{postId}/user/{userId}")
     public void addComment(@RequestBody CommentRequestDto commentDto, @PathVariable Long postId, @PathVariable Long userId ) {

@@ -13,7 +13,6 @@ import org.mapstruct.ReportingPolicy;
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE,
         nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 public interface UserMapper {
-    @Mapping(target = "id", ignore = true)
     User mapGetAllUserResponseToUser(GetAllUserResponse getAllUserResponse);
     GetAllUserResponse mapUserToGetAllUserResponse(User user);
 }

@@ -1,13 +1,16 @@
 package az.springbootlessons.faketweetapp.mapper;
 
 import az.springbootlessons.faketweetapp.dto.response.GetAllUserResponse;
+import az.springbootlessons.faketweetapp.model.Post;
 import az.springbootlessons.faketweetapp.model.User;
+import java.util.ArrayList;
+import java.util.List;
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-03-23T16:09:07+0400",
+    date = "2024-03-24T02:50:37+0400",
     comments = "version: 1.5.5.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.6.jar, environment: Java 21.0.2 (Oracle Corporation)"
 )
 @Component
@@ -21,7 +24,12 @@ public class UserMapperImpl implements UserMapper {
 
         User.UserBuilder user = User.builder();
 
+        user.id( getAllUserResponse.getId() );
         user.username( getAllUserResponse.getUsername() );
+        List<Post> list = getAllUserResponse.getPosts();
+        if ( list != null ) {
+            user.posts( new ArrayList<Post>( list ) );
+        }
 
         return user.build();
     }
@@ -34,7 +42,12 @@ public class UserMapperImpl implements UserMapper {
 
         GetAllUserResponse.GetAllUserResponseBuilder getAllUserResponse = GetAllUserResponse.builder();
 
+        getAllUserResponse.id( user.getId() );
         getAllUserResponse.username( user.getUsername() );
+        List<Post> list = user.getPosts();
+        if ( list != null ) {
+            getAllUserResponse.posts( new ArrayList<Post>( list ) );
+        }
 
         return getAllUserResponse.build();
     }
