@@ -5,6 +5,7 @@ import az.springbootlessons.faketweetapp.dto.request.LoginDto;
 import az.springbootlessons.faketweetapp.dto.request.RegisterDto;
 import az.springbootlessons.faketweetapp.dto.response.TokenDto;
 import az.springbootlessons.faketweetapp.dto.response.UserResponse;
+import az.springbootlessons.faketweetapp.exception.UserNotFoundException;
 import az.springbootlessons.faketweetapp.model.Role;
 import az.springbootlessons.faketweetapp.model.User;
 import az.springbootlessons.faketweetapp.repository.UserRepository;
@@ -12,7 +13,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -40,7 +40,7 @@ public class AuthenticationService {
     public TokenDto login(LoginDto loginDto) {
         log.info("Logging in user: {}", loginDto.getUsername());
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginDto.getUsername(), loginDto.getPassword()));
-        User user = userRepository.findByUsername(loginDto.getUsername()).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        User user = userRepository.findByUsername(loginDto.getUsername()).orElseThrow(() -> new UserNotFoundException("User not found"));
         String token = jwtService.generateToken(user);
         return TokenDto.builder().token(token).build();
     }
