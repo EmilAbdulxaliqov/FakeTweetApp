@@ -15,4 +15,5 @@ public class GetPostResponse {
     private String content;
     private Long userId;
     private String username;
+    private Integer likeCount;
 }

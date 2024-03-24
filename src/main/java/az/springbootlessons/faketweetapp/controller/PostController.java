@@ -35,7 +35,7 @@ public class PostController {
 
     @PostMapping("/user/{userId}")
     public void addPost(@RequestBody PostRequestDto postDto,@PathVariable Long userId) {
-    postService.addPost(postDto,userId);
+        postService.addPost(postDto,userId);
     }
 
     @DeleteMapping("/{id}")

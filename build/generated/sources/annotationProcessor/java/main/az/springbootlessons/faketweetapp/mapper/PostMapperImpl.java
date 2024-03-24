@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-03-24T02:50:37+0400",
+    date = "2024-03-24T22:45:01+0400",
     comments = "version: 1.5.5.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.6.jar, environment: Java 21.0.2 (Oracle Corporation)"
 )
 @Component
@@ -42,6 +42,8 @@ public class PostMapperImpl implements PostMapper {
         getPostResponse.id( post.getId() );
         getPostResponse.title( post.getTitle() );
         getPostResponse.content( post.getContent() );
+
+        getPostResponse.likeCount( post.getLikes().size() );
 
         return getPostResponse.build();
     }

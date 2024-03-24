@@ -12,6 +12,7 @@ public interface PostMapper {
     Post dtoToPost(PostRequestDto dto);
     @Mapping(target = "username", source = "user.username")
     @Mapping(target = "userId", source = "user.id")
+    @Mapping(target = "likeCount", expression = "java(post.getLikes().size())")
     GetPostResponse postToDto(Post post);
     Post dtoToPost(GetPostResponse dto);
 }
