@@ -9,6 +9,7 @@ import az.springbootlessons.faketweetapp.model.Comment;
 import az.springbootlessons.faketweetapp.model.Post;
 import az.springbootlessons.faketweetapp.model.User;
 import az.springbootlessons.faketweetapp.repository.CommentRepository;
+import az.springbootlessons.faketweetapp.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -34,8 +35,8 @@ public class CommentService {
     }
 
     public void addComment(CommentRequestDto commentDto, Long postId, Long userId) {
-        Post postDto = postMapper.dtoToPost(postService.getPostByIdDto(postId));
-        User user = userMapper.mapGetAllUserResponseToUser(userService.getUserById(userId));
+        Post postDto = postService.findById(postId);
+        User user = userService.findById(userId);
         Comment comment = commentMapper.dtoToComment(commentDto);
         comment.setPost(postDto);
         comment.setUser(user);
