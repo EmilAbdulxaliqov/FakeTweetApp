@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 public class PostService {
 
     private final PostRepository postRepository;
-    private final UserRepository userRepository;
+//    private final UserRepository userRepository;
     private final PostMapper postMapper;
     private final UserService userService;
     private final UserMapper userMapper;
@@ -33,7 +33,7 @@ public class PostService {
     public void addPost(PostRequestDto postDto,Long userId) {
 //        User user = userMapper.mapGetAllUserResponseToUser(userService.getUserById(userId));
 //        Don't forget user_id and then you will get an error object references an unsaved transient instance - save the transient instance before flushing
-        User user = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException("User not found"));
+        User user = userService.findById(userId);
         Post post = postMapper.dtoToPost(postDto);
         post.setUser(user);
         postRepository.save(post);
@@ -47,6 +47,10 @@ public class PostService {
     public GetPostResponse getPostByIdDto(Long id) {
         Post post = postRepository.findById(id).orElseThrow(() -> new PostNotFoundException("Post not found"));
         return postMapper.postToDto(post);
+    }
+
+    public Post findById(Long id) {
+        return postRepository.findById(id).orElseThrow(() -> new PostNotFoundException("Post not found"));
     }
 
     public List<GetPostResponse> getPostsByUserId(Long userId) {
