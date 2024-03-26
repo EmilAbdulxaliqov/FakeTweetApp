@@ -2,6 +2,8 @@ package az.springbootlessons.faketweetapp.model;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.springframework.security.core.GrantedAuthority;
@@ -31,6 +33,7 @@ public class User implements UserDetails {
     List<Comment> comments;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     List<Like> likes;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));

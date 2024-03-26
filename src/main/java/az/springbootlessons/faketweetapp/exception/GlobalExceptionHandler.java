@@ -18,4 +18,9 @@ public class GlobalExceptionHandler {
     public String handleRuntimeException(PostNotFoundException ex) {
         return ex.getMessage();
     }
+    @ExceptionHandler(UserAlreadyExistException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public String handleRuntimeException(UserAlreadyExistException ex) {
+        return ex.getMessage();
+    }
 }

@@ -7,6 +7,7 @@ import az.springbootlessons.faketweetapp.dto.response.TokenDto;
 import az.springbootlessons.faketweetapp.dto.response.UserResponse;
 import az.springbootlessons.faketweetapp.service.AuthenticationService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,7 +20,7 @@ public class AuthenticationController {
 
     @PostMapping("/register")
     public ResponseEntity<UserResponse> register(@RequestBody RegisterDto registerDto) {
-        return ResponseEntity.ok(authenticationService.register(registerDto));
+        return new ResponseEntity<>(authenticationService.register(registerDto), HttpStatus.CREATED);
     }
 
     @PostMapping("/login")
