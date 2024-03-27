@@ -11,8 +11,10 @@ import org.mapstruct.ReportingPolicy;
 public interface PostMapper {
     Post dtoToPost(PostRequestDto dto);
     @Mapping(target = "username", source = "user.username")
-    @Mapping(target = "userId", source = "user.id")
+    @Mapping(target = "userIdWhoCreatedPost", source = "user.id")
     @Mapping(target = "likeCount", expression = "java(post.getLikes().size())")
+    @Mapping(target = "likesId", expression = "java(post.getLikes().stream().map(like -> like.getId()).toList())")
+    @Mapping(target = "usersIdWhoLikedPost", expression = "java(post.getLikes().stream().map(like -> like.getUser().getId()).toList())")
     GetPostResponse postToDto(Post post);
     Post dtoToPost(GetPostResponse dto);
 }
