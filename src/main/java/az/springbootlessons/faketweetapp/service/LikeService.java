@@ -6,8 +6,10 @@ import az.springbootlessons.faketweetapp.model.Like;
 import az.springbootlessons.faketweetapp.model.Post;
 import az.springbootlessons.faketweetapp.model.User;
 import az.springbootlessons.faketweetapp.repository.LikeRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RestController;
 
 @Service
 @RequiredArgsConstructor
@@ -28,6 +30,7 @@ public class LikeService {
         likeRepository.save(like);
     }
 
+    @Transactional
     public void unlikePost(Long postId, Long userId) {
         likeRepository.deleteByPostIdAndUserId(postId, userId);
     }
