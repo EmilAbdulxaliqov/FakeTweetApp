@@ -3,6 +3,7 @@ package az.springbootlessons.faketweetapp.controller;
 
 import az.springbootlessons.faketweetapp.dto.request.PostRequestDto;
 import az.springbootlessons.faketweetapp.dto.response.GetPostResponse;
+import az.springbootlessons.faketweetapp.model.Like;
 import az.springbootlessons.faketweetapp.service.LikeService;
 import az.springbootlessons.faketweetapp.service.PostService;
 import lombok.RequiredArgsConstructor;
@@ -63,4 +64,10 @@ public class PostController {
         return new ResponseEntity<>("Post unliked successfully", HttpStatus.OK);
     }
 
+
+
+    @GetMapping("/user/{userId}/likes")
+    public ResponseEntity<List<GetPostResponse>> getLikesByUserId(@PathVariable Long userId) {
+        return new ResponseEntity<>(postService.getPostsByLikes(userId), HttpStatus.OK);
+    }
 }

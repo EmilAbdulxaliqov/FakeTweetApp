@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-03-27T23:29:48+0400",
+    date = "2024-03-28T05:59:45+0400",
     comments = "version: 1.5.5.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.6.jar, environment: Java 21.0.1 (Oracle Corporation)"
 )
 @Component
@@ -48,6 +48,8 @@ public class UserMapperImpl implements UserMapper {
         if ( list != null ) {
             getAllUserResponse.posts( new ArrayList<Post>( list ) );
         }
+
+        getAllUserResponse.likedPost( user.getLikes().stream().map(like -> like.getPost()).toList() );
 
         return getAllUserResponse.build();
     }
