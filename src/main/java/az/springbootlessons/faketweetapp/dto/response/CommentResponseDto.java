@@ -8,6 +8,7 @@ import lombok.Data;
 @Builder
 @AllArgsConstructor
 public class CommentResponseDto {
+    private Long id;
     private String content;
     private Long postId;
     private Long userId;

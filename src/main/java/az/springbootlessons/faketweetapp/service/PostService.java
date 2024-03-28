@@ -68,5 +68,7 @@ public class PostService {
         postRepository.save(post);
     }
 
-
+    public List<GetPostResponse> getPostsByLikes(Long userId) {
+        return postRepository.findByLikesByUser(userId).stream().map(postMapper::postToDto).collect(Collectors.toList());
+    }
 }

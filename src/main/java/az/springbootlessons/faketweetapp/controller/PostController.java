@@ -63,4 +63,9 @@ public class PostController {
         return new ResponseEntity<>("Post unliked successfully", HttpStatus.OK);
     }
 
+    @GetMapping("/user/{userId}/likes")
+    public ResponseEntity<List<GetPostResponse>> getLikesByUserId(@PathVariable Long userId) {
+        return new ResponseEntity<>(postService.getPostsByLikes(userId), HttpStatus.OK);
+    }
+
 }
